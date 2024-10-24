@@ -15,6 +15,8 @@ namespace http {
             TcpServer(std::string ip_address, int port);
             ~TcpServer();
 
+            void start_listen();
+
         private:
             std::string m_ip_address;
             int m_port;
@@ -24,10 +26,13 @@ namespace http {
             struct sockaddr_in m_socket_address;
             unsigned int m_socket_address_len;
             std::string m_server_message;
+            int total_connections;
 
             int start_server();
             void close_server();
+            void accept_connection(int& new_socket);
             std::string build_response();
+            void send_response();
     };
     
 }  // namespace http
